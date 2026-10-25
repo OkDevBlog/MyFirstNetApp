@@ -1,0 +1,15 @@
+/workspaces/MyFirstNetApp/MyFirstApp/bin/Debug/net10.0/MyFirstApp
+/workspaces/MyFirstNetApp/MyFirstApp/bin/Debug/net10.0/MyFirstApp.deps.json
+/workspaces/MyFirstNetApp/MyFirstApp/bin/Debug/net10.0/MyFirstApp.runtimeconfig.json
+/workspaces/MyFirstNetApp/MyFirstApp/bin/Debug/net10.0/MyFirstApp.dll
+/workspaces/MyFirstNetApp/MyFirstApp/bin/Debug/net10.0/MyFirstApp.pdb
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/MyFirstApp.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/MyFirstApp.AssemblyInfoInputs.cache
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/MyFirstApp.AssemblyInfo.cs
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/MyFirstApp.csproj.CoreCompileInputs.cache
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/MyFirstApp.sourcelink.json
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/MyFirstApp.dll
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/refint/MyFirstApp.dll
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/MyFirstApp.pdb
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/MyFirstApp.genruntimeconfig.cache
+/workspaces/MyFirstNetApp/MyFirstApp/obj/Debug/net10.0/ref/MyFirstApp.dll
