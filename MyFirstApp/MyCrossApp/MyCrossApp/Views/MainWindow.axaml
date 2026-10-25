@@ -1,21 +1,10 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="using:MyCrossApp.Views"
         x:Class="MyCrossApp.Views.MainWindow"
         Title="Cross-Platform App"
         Width="450" Height="250">
-
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">
-        <!-- TextBlock مع اسم لسهولة التحكم به برمجياً -->
-        <TextBlock x:Name="MyMessageText" 
-                   Text="Welcome! Click the button below." 
-                   FontSize="16" 
-                   TextAlignment="Center"
-                   HorizontalAlignment="Center"/>
-
-        <!-- Button مع حدث النقر المباشر Click -->
-        <Button Content="Click Me" 
-                Click="Button_Click" 
-                HorizontalAlignment="Center"
-                Padding="12,6"/>
-    </StackPanel>
+    
+    <!-- استدعاء الشاشة المشتركة هنا لتعمل على سطح المكتب تماماً كما في المتصفح -->
+    <views:MainView />
 </Window>
