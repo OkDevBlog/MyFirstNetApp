@@ -1,0 +1,11 @@
+﻿<Solution>
+  <Project Path="MyCrossApp.Android/MyCrossApp.Android.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="MyCrossApp.Browser/MyCrossApp.Browser.csproj" />
+  <Project Path="MyCrossApp.Desktop/MyCrossApp.Desktop.csproj" />
+  <Project Path="MyCrossApp.iOS/MyCrossApp.iOS.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="MyCrossApp/MyCrossApp.csproj" />
+</Solution>

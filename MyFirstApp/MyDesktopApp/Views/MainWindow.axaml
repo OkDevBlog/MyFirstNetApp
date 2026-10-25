@@ -3,20 +3,29 @@
         xmlns:vm="using:MyDesktopApp.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:Width="400" d:Height="250"
         x:Class="MyDesktopApp.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="MyDesktopApp">
+        Title="تطبيقي الأول"
+        Width="450" Height="250">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainViewModel />
+        <vm:MainViewModel/>
     </Design.DataContext>
 
-    <TextBox Text="{Binding Greeting}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center" />
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">
+        <!-- TextBlock يقرأ النص مباشرة من المتغير Greeting -->
+        <TextBlock Text="{Binding Greeting}" 
+                   FontSize="16" 
+                   TextWrapping="Wrap" 
+                   MaxWidth="380"
+                   HorizontalAlignment="Center"/>
 
+        <!-- Button يربط حدث الضغط بالأمر ButtonClickCommand -->
+        <Button Content="اضغط لتغيير النص" 
+                Command="{Binding ButtonClickCommand}" 
+                HorizontalAlignment="Center"
+                Padding="10,5"/>
+    </StackPanel>
 </Window>
