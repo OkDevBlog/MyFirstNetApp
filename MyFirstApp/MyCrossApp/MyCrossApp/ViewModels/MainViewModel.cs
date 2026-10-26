@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MyCrossApp.Helpers;
 using MyCrossApp.Models;
 using MyCrossApp.Services;
 
@@ -70,7 +71,10 @@ public partial class MainViewModel : ViewModelBase
     private string _formHeader = "إضافة معاملة جديدة";
 
     [ObservableProperty]
-    private string _submitButtonText = "حفظ المعاملة";
+    private string _submitButtonText = "إضافة المعاملة";
+
+    [ObservableProperty]
+    private string _submitIconData = AppIcons.Add;
 
     // حالة تأكيد الحذف
     [ObservableProperty]
@@ -253,6 +257,7 @@ public partial class MainViewModel : ViewModelBase
 
         FormHeader = "تعديل المعاملة";
         SubmitButtonText = "حفظ التعديلات";
+        SubmitIconData = AppIcons.Save;
         StatusMessage = $"جاري تعديل المعاملة: {transaction.Title}";
     }
 
@@ -263,7 +268,8 @@ public partial class MainViewModel : ViewModelBase
         EditingTransactionId = 0;
         ResetForm();
         FormHeader = "إضافة معاملة جديدة";
-        SubmitButtonText = "حفظ المعاملة";
+        SubmitButtonText = "إضافة المعاملة";
+        SubmitIconData = AppIcons.Add;
         StatusMessage = "جاهز لإضافة معاملة جديدة.";
     }
 
@@ -337,6 +343,8 @@ public partial class MainViewModel : ViewModelBase
         NewNotes = string.Empty;
         SelectedDate = DateTimeOffset.Now;
         IsExpense = true;
+        SubmitButtonText = "إضافة المعاملة";
+        SubmitIconData = AppIcons.Add;
         if (Categories.Count > 0)
         {
             SelectedCategory = Categories[0];

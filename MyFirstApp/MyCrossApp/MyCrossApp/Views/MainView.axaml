@@ -24,6 +24,77 @@
         <StreamGeometry x:Key="IconClose">M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z</StreamGeometry>
     </UserControl.Resources>
 
+    <UserControl.Styles>
+        <!-- النمط الاحترافي لزر الإجراء الرئيسي (حفظ / إنشاء / تعديل) -->
+        <Style Selector="Button.btn-primary">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0.0" Color="#2563EB" />
+                    <GradientStop Offset="1.0" Color="#1D4ED8" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Height" Value="46" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.btn-primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0.0" Color="#3B82F6" />
+                    <GradientStop Offset="1.0" Color="#2563EB" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="RenderTransform" Value="scale(1.01)" />
+        </Style>
+
+        <Style Selector="Button.btn-primary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Offset="0.0" Color="#1D4ED8" />
+                    <GradientStop Offset="1.0" Color="#1E40AF" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="RenderTransform" Value="scale(0.985)" />
+        </Style>
+
+        <!-- النمط الاحترافي لزر الإلغاء الثانوي -->
+        <Style Selector="Button.btn-secondary">
+            <Setter Property="Background" Value="#12E74C3C" />
+            <Setter Property="BorderBrush" Value="#40E74C3C" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.btn-secondary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#25E74C3C" />
+            <Setter Property="BorderBrush" Value="#E74C3C" />
+        </Style>
+    </UserControl.Styles>
+
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
         <Grid RowDefinitions="Auto, Auto, *" Margin="16" MaxWidth="1100">
 
@@ -197,27 +268,37 @@
                                      AcceptsReturn="True"/>
                         </StackPanel>
 
-                        <!-- زر الحفظ أو التحديث -->
-                        <Button Content="{Binding SubmitButtonText}" 
-                                Command="{Binding SaveTransactionCommand}" 
-                                HorizontalAlignment="Stretch" 
-                                HorizontalContentAlignment="Center"
-                                Background="{DynamicResource SystemAccentColor}"
-                                Foreground="White"
-                                FontWeight="Bold"
-                                Padding="12"
-                                Margin="0,8,0,0"/>
+                        <!-- زر الحفظ أو التحديث الاحترافي بتصميم أنيق ومجسم -->
+                        <Border CornerRadius="10" BoxShadow="0 4 14 0 #351D4ED8" Margin="0,10,0,0">
+                            <Button Classes="btn-primary" 
+                                    Command="{Binding SaveTransactionCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <!-- شارة دائرية زجاجية أنيقة خلف الأيقونة المتجهة -->
+                                    <Border Width="26" Height="26" CornerRadius="13" Background="#26FFFFFF">
+                                        <PathIcon Data="{Binding SubmitIconData}" 
+                                                  Foreground="White" 
+                                                  Width="14" 
+                                                  Height="14" 
+                                                  HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"/>
+                                    </Border>
+                                    <TextBlock Text="{Binding SubmitButtonText}" 
+                                               Foreground="White" 
+                                               FontWeight="Bold" 
+                                               FontSize="14" 
+                                               VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </Border>
 
                         <!-- زر إلغاء التعديل (يظهر فقط عند التعديل) -->
-                        <Button Command="{Binding CancelEditCommand}" 
+                        <Button Classes="btn-secondary"
+                                Command="{Binding CancelEditCommand}" 
                                 IsVisible="{Binding IsEditing}" 
-                                HorizontalAlignment="Stretch" 
-                                HorizontalContentAlignment="Center"
-                                Padding="10"
-                                Margin="0,4,0,0">
-                            <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
-                                <PathIcon Data="{StaticResource IconClose}" Width="12" Height="12" VerticalAlignment="Center"/>
-                                <TextBlock Text="إلغاء التعديل" VerticalAlignment="Center"/>
+                                Margin="0,6,0,0">
+                            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <PathIcon Data="{StaticResource IconClose}" Width="12" Height="12" Foreground="#E74C3C" VerticalAlignment="Center"/>
+                                <TextBlock Text="إلغاء التعديل" Foreground="#C0392B" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
