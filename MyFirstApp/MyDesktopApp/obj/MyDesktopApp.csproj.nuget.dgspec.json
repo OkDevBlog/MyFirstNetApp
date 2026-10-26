@@ -1,26 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "/workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/MyDesktopApp.csproj": {}
+    "C:\\Users\\lenovo\\MyApps\\MyFirstNetApp\\MyFirstApp\\MyDesktopApp\\MyDesktopApp.csproj": {}
   },
   "projects": {
-    "/workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/MyDesktopApp.csproj": {
+    "C:\\Users\\lenovo\\MyApps\\MyFirstNetApp\\MyFirstApp\\MyDesktopApp\\MyDesktopApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/MyDesktopApp.csproj",
+        "projectUniqueName": "C:\\Users\\lenovo\\MyApps\\MyFirstNetApp\\MyFirstApp\\MyDesktopApp\\MyDesktopApp.csproj",
         "projectName": "MyDesktopApp",
-        "projectPath": "/workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/MyDesktopApp.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/obj/",
+        "projectPath": "C:\\Users\\lenovo\\MyApps\\MyFirstNetApp\\MyFirstApp\\MyDesktopApp\\MyDesktopApp.csproj",
+        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lenovo\\MyApps\\MyFirstNetApp\\MyFirstApp\\MyDesktopApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/share/dotnet/library-packs": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -88,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.401/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.403/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

@@ -3,13 +3,39 @@
              xmlns:local="using:MyCrossApp"
              x:Class="MyCrossApp.App"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <local:ViewLocator />
     </Application.DataTemplates>
 
+    <Application.Resources>
+        <!-- خط عربي متكامل مدمج داخل التطبيق ليعمل في المتصفح وسطح المكتب والهواتف -->
+        <FontFamily x:Key="ArabicFont">avares://MyCrossApp/Assets/Fonts#Segoe UI, Segoe UI, Tahoma, Arial, sans-serif</FontFamily>
+    </Application.Resources>
+
     <Application.Styles>
         <FluentTheme />
+        <!-- تطبيق الخط العربي المضمن على كافة عناصر الواجهة -->
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
+        </Style>
+        <Style Selector="RadioButton">
+            <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
+        </Style>
+        <Style Selector="DatePicker">
+            <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
+        </Style>
+        <Style Selector="ListBox">
+            <Setter Property="FontFamily" Value="{StaticResource ArabicFont}" />
+        </Style>
     </Application.Styles>
 </Application>

@@ -8,8 +8,8 @@ build_property.AvaloniaNameGeneratorViewFileNamingStrategy = NamespaceAndClassNa
 build_property.AvaloniaNameGeneratorAttachDevTools = true
 build_property.AvaloniaUseCompiledBindingsByDefault = true
 build_property.AvaloniaMainPackageVersion = 12.1.4
-build_property.AvaloniaPreviewerNetCoreToolPath = /home/codespace/.nuget/packages/avalonia/12.1.4/buildTransitive//../tools/net8.0/designer/Avalonia.Designer.HostApp.dll
-build_property.AvaloniaResourcePaths = /workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/Assets/avalonia-logo.ico,/workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/App.axaml,/workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/Views/MainWindow.axaml
+build_property.AvaloniaPreviewerNetCoreToolPath = C:\Users\lenovo\.nuget\packages\avalonia\12.1.4\buildTransitive\\..\tools\net8.0\designer\Avalonia.Designer.HostApp.dll
+build_property.AvaloniaResourcePaths = C:\Users\lenovo\MyApps\MyFirstNetApp\MyFirstApp\MyDesktopApp\Assets\avalonia-logo.ico,C:\Users\lenovo\MyApps\MyFirstNetApp\MyFirstApp\MyDesktopApp\App.axaml,C:\Users\lenovo\MyApps\MyFirstNetApp\MyFirstApp\MyDesktopApp\Views\MainWindow.axaml
 build_property.MvvmToolkitEnableINotifyPropertyChangingSupport = true
 build_property._MvvmToolkitIsUsingWindowsRuntimePack = false
 build_property.CsWinRTComponent = 
@@ -27,14 +27,14 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property.EntryPointFilePath = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MyDesktopApp
-build_property.ProjectDir = /workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/
+build_property.ProjectDir = C:\Users\lenovo\MyApps\MyFirstNetApp\MyFirstApp\MyDesktopApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[/workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/App.axaml]
+[C:/Users/lenovo/MyApps/MyFirstNetApp/MyFirstApp/MyDesktopApp/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/workspaces/MyFirstNetApp/MyFirstApp/MyDesktopApp/Views/MainWindow.axaml]
+[C:/Users/lenovo/MyApps/MyFirstNetApp/MyFirstApp/MyDesktopApp/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

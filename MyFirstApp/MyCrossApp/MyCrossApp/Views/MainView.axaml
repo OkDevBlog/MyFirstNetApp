@@ -1,22 +1,408 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MyCrossApp.ViewModels"
+             xmlns:models="using:MyCrossApp.Models"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:Width="400" d:Height="250"
-             x:Class="MyCrossApp.Views.MainView">
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="650"
+             x:Class="MyCrossApp.Views.MainView"
+             x:DataType="vm:MainViewModel"
+             FlowDirection="RightToLeft"
+             FontFamily="avares://MyCrossApp/Assets/Fonts#Segoe UI, Segoe UI, Tahoma, Arial, sans-serif">
 
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">
-        <!-- TextBlock مع اسم لسهولة التحكم به -->
-        <TextBlock x:Name="MyMessageText" 
-                   Text="Welcome! Click the button below." 
-                   FontSize="16" 
-                   TextAlignment="Center"
-                   HorizontalAlignment="Center"/>
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
 
-        <!-- Button التفاعلي -->
-        <Button Content="Click Me" 
-                Click="Button_Click" 
-                HorizontalAlignment="Center"
-                Padding="12,6"/>
-    </StackPanel>
+    <UserControl.Resources>
+        <!-- متجهات الأيقونات العالمية (SVG Paths) بدقة عالية ودون الاعتماد على خطوط النظام -->
+        <StreamGeometry x:Key="IconWallet">M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z</StreamGeometry>
+        <StreamGeometry x:Key="IconRefresh">M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z</StreamGeometry>
+        <StreamGeometry x:Key="IconEdit">M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z</StreamGeometry>
+        <StreamGeometry x:Key="IconDelete">M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z</StreamGeometry>
+        <StreamGeometry x:Key="IconSearch">M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z</StreamGeometry>
+        <StreamGeometry x:Key="IconClose">M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z</StreamGeometry>
+    </UserControl.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Grid RowDefinitions="Auto, Auto, *" Margin="16" MaxWidth="1100">
+
+            <!-- 1. ترويسة التطبيق وشريط الحالة -->
+            <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,15">
+                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <Border Width="40" Height="40" CornerRadius="10" Background="{DynamicResource SystemAccentColor}">
+                        <PathIcon Data="{StaticResource IconWallet}" 
+                                  Foreground="White" 
+                                  Width="20" 
+                                  Height="20" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="مدير المصاريف الذكي" 
+                                   FontSize="20" 
+                                   FontWeight="Bold" 
+                                   Foreground="{DynamicResource SystemAccentColor}"/>
+                        <TextBlock Text="{Binding StatusMessage}" 
+                                   FontSize="12" 
+                                   Opacity="0.8" 
+                                   TextWrapping="Wrap"
+                                   Margin="0,2,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Grid.Column="1" 
+                        Command="{Binding LoadDataCommand}" 
+                        Padding="12,8" 
+                        VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <PathIcon Data="{StaticResource IconRefresh}" Width="14" Height="14" VerticalAlignment="Center"/>
+                        <TextBlock Text="تحديث" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!-- 2. بطاقات الإحصائيات العلوية (متكيفة مع العرض) -->
+            <Grid x:Name="StatsGrid" Grid.Row="1" ColumnDefinitions="*, *, *" Margin="0,0,0,20">
+                <!-- بطاقة الرصيد الإجمالي -->
+                <Border x:Name="CardTotal" 
+                        Grid.Column="0" 
+                        Background="{DynamicResource SystemChromeLowColor}" 
+                        CornerRadius="10" 
+                        Padding="14" 
+                        Margin="0,0,10,0">
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="الرصيد الكلي" FontSize="12" Opacity="0.7"/>
+                        <TextBlock Text="{Binding TotalBalance, StringFormat='{}{0:N2} ريال'}" 
+                                   FontSize="18" 
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- بطاقة مصاريف الشهر -->
+                <Border x:Name="CardExpenses" 
+                        Grid.Column="1" 
+                        Background="{DynamicResource SystemChromeLowColor}" 
+                        CornerRadius="10" 
+                        Padding="14" 
+                        Margin="5,0,5,0">
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="مصاريف هذا الشهر" FontSize="12" Opacity="0.7"/>
+                        <TextBlock Text="{Binding TotalExpensesMonth, StringFormat='-{0:N2} ريال'}" 
+                                   FontSize="18" 
+                                   FontWeight="Bold" 
+                                   Foreground="#E74C3C"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- بطاقة دخل الشهر -->
+                <Border x:Name="CardIncome" 
+                        Grid.Column="2" 
+                        Background="{DynamicResource SystemChromeLowColor}" 
+                        CornerRadius="10" 
+                        Padding="14" 
+                        Margin="10,0,0,0">
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="دخل هذا الشهر" FontSize="12" Opacity="0.7"/>
+                        <TextBlock Text="{Binding TotalIncomeMonth, StringFormat='+{0:N2} ريال'}" 
+                                   FontSize="18" 
+                                   FontWeight="Bold" 
+                                   Foreground="#2ECC71"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- 3. منطقة المحتوى الرئيسية (تتكيف تلقائياً بين عمودين للشاشات الكبيرة وعمود مكدس للشاشات الصغيرة) -->
+            <Grid x:Name="MainContentGrid" Grid.Row="2" ColumnDefinitions="350, *" Margin="0,0,0,10">
+
+                <!-- نموذج الإضافة والتعديل -->
+                <Border x:Name="FormBorder" 
+                        Grid.Column="0" 
+                        Background="{DynamicResource SystemChromeLowColor}" 
+                        CornerRadius="10" 
+                        Padding="16" 
+                        Margin="0,0,16,0"
+                        VerticalAlignment="Top">
+                    <StackPanel Spacing="12">
+                        <!-- عنوان النموذج (يتغير ديناميكياً بين إضافة وتعديل) -->
+                        <TextBlock Text="{Binding FormHeader}" FontSize="16" FontWeight="SemiBold"/>
+
+                        <!-- العنوان / البيان -->
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="الوصف / البيان:" FontSize="12"/>
+                            <TextBox Text="{Binding NewTitle, Mode=TwoWay}" 
+                                     PlaceholderText="مثال: تسوق سوبرماركت..."/>
+                        </StackPanel>
+
+                        <!-- المبلغ -->
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="المبلغ:" FontSize="12"/>
+                            <TextBox Text="{Binding NewAmountText, Mode=TwoWay}" 
+                                     PlaceholderText="0.00"/>
+                        </StackPanel>
+
+                        <!-- نوع المعاملة: مصروف أو دخل -->
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="النوع:" FontSize="12"/>
+                            <StackPanel Orientation="Horizontal" Spacing="24">
+                                <RadioButton GroupName="TransactionTypeGroup"
+                                             IsChecked="{Binding IsExpense, Mode=TwoWay}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Ellipse Width="10" Height="10" Fill="#E74C3C" VerticalAlignment="Center"/>
+                                        <TextBlock Text="مصروف" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </RadioButton>
+                                <RadioButton GroupName="TransactionTypeGroup"
+                                             IsChecked="{Binding IsIncome, Mode=TwoWay}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Ellipse Width="10" Height="10" Fill="#2ECC71" VerticalAlignment="Center"/>
+                                        <TextBlock Text="دخل" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </RadioButton>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- منتقي التاريخ -->
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="تاريخ المعاملة:" FontSize="12"/>
+                            <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}" 
+                                        HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+
+                        <!-- التصنيف -->
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="التصنيف:" FontSize="12"/>
+                            <ComboBox ItemsSource="{Binding Categories}" 
+                                      SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                                      HorizontalAlignment="Stretch">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Category">
+                                        <StackPanel Orientation="Horizontal" Spacing="10">
+                                            <Border Width="22" Height="22" CornerRadius="11" Background="{Binding ColorHex}">
+                                                <PathIcon Data="{Binding IconData}" Width="12" Height="12" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <!-- ملاحظات -->
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="ملاحظات (اختياري):" FontSize="12"/>
+                            <TextBox Text="{Binding NewNotes, Mode=TwoWay}" 
+                                     PlaceholderText="تفاصيل إضافية..." 
+                                     Height="60" 
+                                     AcceptsReturn="True"/>
+                        </StackPanel>
+
+                        <!-- زر الحفظ أو التحديث -->
+                        <Button Content="{Binding SubmitButtonText}" 
+                                Command="{Binding SaveTransactionCommand}" 
+                                HorizontalAlignment="Stretch" 
+                                HorizontalContentAlignment="Center"
+                                Background="{DynamicResource SystemAccentColor}"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                Padding="12"
+                                Margin="0,8,0,0"/>
+
+                        <!-- زر إلغاء التعديل (يظهر فقط عند التعديل) -->
+                        <Button Command="{Binding CancelEditCommand}" 
+                                IsVisible="{Binding IsEditing}" 
+                                HorizontalAlignment="Stretch" 
+                                HorizontalContentAlignment="Center"
+                                Padding="10"
+                                Margin="0,4,0,0">
+                            <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
+                                <PathIcon Data="{StaticResource IconClose}" Width="12" Height="12" VerticalAlignment="Center"/>
+                                <TextBlock Text="إلغاء التعديل" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- سجل المعاملات والفلترة -->
+                <Grid x:Name="ListGrid" Grid.Column="1" RowDefinitions="Auto, Auto, *">
+
+                    <!-- شريط البحث والتصفية المتكيف -->
+                    <Border Grid.Row="0" 
+                            Background="{DynamicResource SystemChromeLowColor}" 
+                            CornerRadius="10" 
+                            Padding="12" 
+                            Margin="0,0,0,10">
+                        <Grid x:Name="SearchBarGrid" ColumnDefinitions="*, 150, Auto">
+                            <!-- البحث الفوري التفاعلي -->
+                            <TextBox x:Name="SearchTextBox" 
+                                     Grid.Column="0" 
+                                     Text="{Binding SearchQuery, Mode=TwoWay}" 
+                                     PlaceholderText="بحث فوري في المعاملات..." 
+                                     Margin="0,0,10,0"/>
+
+                            <!-- الفلترة الفورية باختيار التصنيف -->
+                            <ComboBox x:Name="FilterComboBox" 
+                                      Grid.Column="1" 
+                                      ItemsSource="{Binding FilterCategories}" 
+                                      SelectedItem="{Binding SelectedFilterCategory, Mode=TwoWay}"
+                                      HorizontalAlignment="Stretch" 
+                                      Margin="0,0,10,0">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Category">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <PathIcon Data="{Binding IconData}" Width="14" Height="14" Foreground="{DynamicResource SystemAccentColor}" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <!-- زر إعادة الضبط ومسح الفلتر -->
+                            <Button x:Name="ClearFilterButton" 
+                                    Grid.Column="2" 
+                                    Content="إعادة ضبط" 
+                                    Command="{Binding ClearFilterCommand}" 
+                                    ToolTip.Tip="مسح البحث وعرض كل المعاملات"
+                                    Padding="12,6"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- شريط تأكيد الحذف -->
+                    <Border Grid.Row="1" 
+                            IsVisible="{Binding IsConfirmingDelete}"
+                            Background="#FADBD8"
+                            BorderBrush="#E74C3C"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="12"
+                            Margin="0,0,0,10">
+                        <Grid ColumnDefinitions="*, Auto, Auto">
+                            <TextBlock Grid.Column="0" 
+                                       Text="{Binding DeleteConfirmMessage}" 
+                                       Foreground="#78281F" 
+                                       FontWeight="SemiBold" 
+                                       TextWrapping="Wrap"
+                                       VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" 
+                                    Content="نعم، حذف نهائي" 
+                                    Command="{Binding ConfirmDeleteCommand}" 
+                                    Background="#C0392B" 
+                                    Foreground="White" 
+                                    FontWeight="Bold" 
+                                    Padding="12,6" 
+                                    Margin="8,0"/>
+                            <Button Grid.Column="2" 
+                                    Content="تراجع" 
+                                    Command="{Binding CancelDeleteCommand}" 
+                                    Padding="12,6"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- قائمة المعاملات المنسدلة بتصميم سطرين مانع للتداخل -->
+                    <Border Grid.Row="2" 
+                            Background="{DynamicResource SystemChromeLowColor}" 
+                            CornerRadius="10" 
+                            Padding="8"
+                            MinHeight="350">
+                        <ListBox ItemsSource="{Binding Transactions}" 
+                                 Background="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:DataType="models:Transaction">
+                                    <Border BorderBrush="{DynamicResource SystemChromeMediumColor}" 
+                                            BorderThickness="0,0,0,1" 
+                                            Padding="10,10">
+                                        <!-- شبكة من سطرين تفصل العنوان والمبلغ في السطر الأول، والتفاصيل والأزرار في السطر الثاني لمنع أي تداخل نهائياً -->
+                                        <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, Auto">
+                                            
+                                            <!-- أيقونة التصنيف المتجهة (تمتد رأسياً على السطرين) -->
+                                            <Border Grid.Row="0" Grid.RowSpan="2" 
+                                                    Grid.Column="0" 
+                                                    Width="38" 
+                                                    Height="38" 
+                                                    CornerRadius="19" 
+                                                    Background="{Binding Category.ColorHex, FallbackValue='#3498DB'}" 
+                                                    VerticalAlignment="Center"
+                                                    Margin="0,0,12,0">
+                                                <PathIcon Data="{Binding Category.IconData}" 
+                                                          Foreground="White"
+                                                          Width="18" 
+                                                          Height="18" 
+                                                          HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center"/>
+                                            </Border>
+
+                                            <!-- السطر الأول - الوسط: عنوان المعاملة مع قص ذكي إذا ضاقت المساحة -->
+                                            <TextBlock Grid.Row="0" Grid.Column="1" 
+                                                       Text="{Binding Title}" 
+                                                       FontWeight="SemiBold" 
+                                                       FontSize="14"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,8,0"/>
+
+                                            <!-- السطر الأول - اليسار: المبلغ ملون ومميز حسب النوع ومستقر في زاوية السطر الأول -->
+                                            <TextBlock Grid.Row="0" Grid.Column="2" 
+                                                       Text="{Binding FormattedAmount}" 
+                                                       Foreground="{Binding AmountColor}"
+                                                       FontWeight="Bold" 
+                                                       FontSize="15" 
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"/>
+
+                                            <!-- السطر الثاني - الوسط: التصنيف والتاريخ والملاحظات -->
+                                            <StackPanel Grid.Row="1" Grid.Column="1" 
+                                                        Orientation="Vertical" 
+                                                        Spacing="2" 
+                                                        Margin="0,4,8,0">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <TextBlock Text="{Binding Category.Name, FallbackValue='عام'}" 
+                                                               FontSize="11" 
+                                                               Opacity="0.7"/>
+                                                    <TextBlock Text="•" Opacity="0.4"/>
+                                                    <TextBlock Text="{Binding TransactionDate, StringFormat='{}{0:yyyy-MM-dd}'}" 
+                                                               FontSize="11" 
+                                                               Opacity="0.6"/>
+                                                </StackPanel>
+                                                <!-- ملاحظة إضافية بالعربية بدون مشاكل خط -->
+                                                <TextBlock Text="{Binding Notes}" 
+                                                           FontSize="11" 
+                                                           Opacity="0.75" 
+                                                           TextWrapping="Wrap"
+                                                           IsVisible="{Binding HasNotes}"/>
+                                            </StackPanel>
+
+                                            <!-- السطر الثاني - اليسار: أزرار التعديل والحذف في زاوية السطر الثاني المستقلة -->
+                                            <StackPanel Grid.Row="1" Grid.Column="2" 
+                                                        Orientation="Horizontal" 
+                                                        Spacing="4" 
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Margin="0,4,0,0">
+                                                <Button Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).StartEditTransactionCommand}" 
+                                                        CommandParameter="{Binding}" 
+                                                        Padding="6,4" 
+                                                        Background="Transparent"
+                                                        BorderThickness="0"
+                                                        ToolTip.Tip="تعديل المعاملة">
+                                                    <PathIcon Data="{StaticResource IconEdit}" Width="14" Height="14" Foreground="#3498DB"/>
+                                                </Button>
+                                                <Button Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).RequestDeleteCommand}" 
+                                                        CommandParameter="{Binding}" 
+                                                        Padding="6,4" 
+                                                        Background="Transparent"
+                                                        BorderThickness="0"
+                                                        ToolTip.Tip="حذف المعاملة">
+                                                    <PathIcon Data="{StaticResource IconDelete}" Width="14" Height="14" Foreground="#E74C3C"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
